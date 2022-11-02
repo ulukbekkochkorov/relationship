@@ -10,7 +10,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class User {
+public class Student {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -22,7 +22,7 @@ public class User {
 
     private Long age;
 
-    public User(String name, String lastName, Long age) {
+    public Student(String name, String lastName, Long age) {
         this.name = name;
         this.lastName = lastName;
         this.age = age;
@@ -30,7 +30,7 @@ public class User {
 
     @Override
     public String toString() {
-        return "User{" +
+        return "Student{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", lastName='" + lastName + '\'' +

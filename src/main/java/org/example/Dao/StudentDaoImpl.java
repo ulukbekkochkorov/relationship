@@ -1,22 +1,22 @@
 package org.example.Dao;
 
 import org.example.config.Config;
-import org.example.entity.User;
+import org.example.entity.Student;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import java.util.List;
 
-public class DaoImpl implements Dao {
+public class StudentDaoImpl implements StudentDao {
     private final SessionFactory sessionFactory = Config.createSessionFactory();
     @Override
-    public void saveUserTable(User user) {
+    public void saveStudentTable(Student student) {
         try {
             Session session = sessionFactory.openSession();
             session.beginTransaction();
-            session.save(user);
-            System.out.println("User saved successfully");
+            session.save(student);
+            System.out.println("Student saved successfully");
             session.getTransaction().commit();
             session.close();
         }catch (HibernateException e) {
@@ -24,11 +24,11 @@ public class DaoImpl implements Dao {
         }
     }
     @Override
-    public void dropUsersTable() {
+    public void dropStudentTable() {
         try {
             Session session = sessionFactory.openSession();
             session.beginTransaction();
-            session.createNativeQuery("drop table if exists users;").executeUpdate();
+            session.createNativeQuery("drop table if exists students;").executeUpdate();
             session.getTransaction().commit();
             session.close();
         } catch (HibernateException e) {
@@ -37,15 +37,15 @@ public class DaoImpl implements Dao {
     }
 
     @Override
-    public List<User> getAllUser() {
+    public List<Student> getAllStudent() {
         try {
             Session session = sessionFactory.openSession();
             session.beginTransaction();
-            List<User> users = session.createQuery("select u from User u", User.class).getResultList();
-            System.out.println(users);
+            List<Student> students = session.createQuery("select u from Student u", Student.class).getResultList();
+            System.out.println(students);
             session.getTransaction().commit();
             session.close();
-            return users;
+            return students;
         }catch (HibernateException e) {
             System.out.println(e.getMessage());
         }return null;
@@ -55,8 +55,8 @@ public class DaoImpl implements Dao {
     public void deleteById(Long id) {
         try {Session session = sessionFactory.openSession();
             session.beginTransaction();
-            User user = session.get(User.class, id);
-            session.remove(user);
+            Student student = session.get(Student.class, id);
+            session.remove(student);
             session.getTransaction().commit();
             session.close();
     } catch (HibernateException e) {
